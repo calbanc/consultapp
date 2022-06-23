@@ -27,7 +27,7 @@ if($conexion){
 			inner join Contratos cont on cont.IdEmpresa=t.IdEmpresa and cont.IdTrabajador=t.IdTrabajador
 			where t.UsuarioSis='{$UsuarioSis}' and IdAplicacion='AppRemu' and u.IdEmpresa='{$IdEmpresa}' and cont.IndicadorVigencia='1' ORDER BY IdCuadrilla DESC";
 		
-
+		
 		$resultado=sqlsrv_query($conexion,$consulta);
         
 		while($registro =sqlsrv_fetch_array($resultado)){

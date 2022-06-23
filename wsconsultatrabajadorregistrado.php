@@ -14,7 +14,7 @@ if($conexion){
         
         
             $RUT=$_GET["DNI"];
-            $consulta="SELECT DISTINCT [TRABAJADOR]=T.Nombre+' '+T.ApellidoPaterno+' '+T.ApellidoMaterno,IdTrabajador,IdEmpresa
+            $consulta="SELECT DISTINCT [TRABAJADOR]=T.Nombre+' '+T.ApellidoPaterno+' '+T.ApellidoMaterno,IdTrabajador,IdEmpresa,SW_FOTO,SW_DCTO_IDENTIDAD
                         FROM Trabajador T WITH(NOLOCK) 
                         WHERE T.RutTrabajador='{$RUT}'" ;  
             $resultado=sqlsrv_query($conexion,$consulta);   

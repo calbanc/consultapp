@@ -10,11 +10,21 @@ if($conexion){
         
         $COD_EMP=$_GET["COD_EMP"];
         $COD_TEM=$_GET["COD_TEM"];
-		
-		$consulta=" SELECT NOM_ZON,bod.COD_ZON,bod.COD_BOD,bod.NOM_BOD
+		$COD_PAIS="";
+		$consultaempresa="SELECT COD_PAIS FROM EMPRESAS WHERE COD_EMP='{$COD_EMP}' ";
+
+	
+		$execempresa=sqlsrv_query($conexion,$consultaempresa);
+		if($resultadoempresa=sqlsrv_fetch_array($execempresa)){
+			$COD_PAIS=$resultadoempresa['COD_PAIS'];	
+		}
+	
+		$consulta="SELECT NOM_ZON,bod.COD_ZON,bod.COD_BOD,bod.NOM_BOD,bod.COD_EMP
         FROM BODEGAS bod
         INNER JOIN ZONAS zon ON bod.COD_ZON=zon.zon and bod.COD_EMP=zon.COD_EMP and bod.COD_TEM=zon.COD_TEM 
-        WHERE  bod.COD_EMP='{$COD_EMP}' and bod.COD_TEM='{$COD_TEM}'";
+		INNER JOIN EMPRESAS emp on emp.COD_EMP=BOD.COD_EMP
+        
+        WHERE  emp.COD_PAIS='{$COD_PAIS}' and bod.COD_TEM='{$COD_TEM}'";
 		
 		$resultado=sqlsrv_query($conexion,$consulta);
 		

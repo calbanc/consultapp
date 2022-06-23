@@ -74,12 +74,7 @@ if($conexion){
                 $json[]=$data;
                 echo json_encode($json);
             }
-        }else{
-
-        
-
-
-        		
+        }else{      		
 		$consulta="INSERT INTO ANDROID_CTACTE_TRABAJADOR_MATERIAL(COD_EMP,COD_TEM,IDTRABAJADOR,IDEMPRESATRABAJADOR,FECHA,SUBITEM,CANTIDAD,TIPO,ZON,PLANILLA,MOTIVO,COD_BUS,IDTRABAJADOR_RES,IDTRABAJADOR_JEF,IDAREA,SW_IMPORTADO,usuario) 
         VALUES ('{$NUEVAEMPRESA}','{$COD_TEM}','{$IDTRABAJADOR}','{$IDEMPRESATRABAJADOR}','{$FECHA}','{$SUBITEM}','{$CANTIDAD}','{$TIPO}','{$ZON}','{$PLANILLA}','{$MOTIVO}','{$COD_BUS}','{$IDTRABAJADOR_RES}','{$IDTRABAJADOR_JEF}','{$IDAREA}','0','{$usuario}')";
           

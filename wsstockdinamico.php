@@ -114,6 +114,7 @@ if($conexion){
 		if($TIPO=='3'){
 			$consulta="SPC_STOCK_DINAMICO @COD_EMP='{$COD_EMP}', @COD_TEM='{$COD_TEM}' ".$sqlwhere;
 		}
+		
 
 
 		

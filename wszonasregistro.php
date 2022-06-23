@@ -21,11 +21,18 @@ if($conexion){
        
         if($COD_EMP=='9'||$COD_EMP=='14'){
             
-            $consulta="SELECT E.IdEmpresa,E.Nombre as 'Empresa',Z.IdZona,Z.Nombre as 'Zona'
-            FROM Zona Z
-            INNER JOIN Empresa E ON Z.IdEmpresa=E.IdEmpresa 
-            WHERE E.IdEmpresa='9' OR E.IdEmpresa='14'
-            ORDER BY E.IdEmpresa ASC";
+            $consulta="SELECT tm.IdEmpresa,tm.Nombre as 'Empresa' , tm.IdZona,tm.Zona
+			from(
+			SELECT E.IdEmpresa,E.Nombre,Z.IdZona,Z.Nombre as 'Zona'
+						FROM Zona Z
+						INNER JOIN Empresa E ON Z.IdEmpresa=E.IdEmpresa 
+						WHERE E.IdEmpresa='9'  and IdZona in('51','52','53','55','56','58','70','90','49','81')
+					  union all
+					  SELECT E.IdEmpresa,E.Nombre,Z.IdZona,Z.Nombre as 'zona'
+						FROM Zona Z
+						INNER JOIN Empresa E ON Z.IdEmpresa=E.IdEmpresa 
+						WHERE E.IdEmpresa='14'  and IdZona in('80','50','51','55','59','58','54','53','40','57','41','49','81')
+			)tm";
           
 
             

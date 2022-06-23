@@ -1,8 +1,7 @@
 <?PHP
 $hostname_localhost="192.168.2.210";
 
-$info=array("Database"=>"erpfrusys","UID"=>"reporte","PWD"=>"abc.123456
-","CharacterSet"=>"UTF-8");
+$info=array("Database"=>"erpfrusys","UID"=>"reporte","PWD"=>"abc.123456","CharacterSet"=>"UTF-8");
 $conexion = sqlsrv_connect($hostname_localhost,$info);
 ini_set('mssql.charset', 'UTF-8');
 if($conexion){

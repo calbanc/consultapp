@@ -36,6 +36,8 @@ if($conexion){
             }else{
                 if($COD_EMP=='9'){
                     $NUEVAEMPRESA='ARAP';
+                }else{
+                    $NUEVAEMPRESA=$COD_EMP;
                 }
                 
             }
@@ -66,15 +68,47 @@ if($conexion){
             if(!empty($IDTRABAJADOR)){
                 $WHERE.="AND IdTrabajador='{$IDTRABAJADOR}'";    
             }
-
+            
+/*             $consulta="SELECT NombreConductor,ISNULL(EmpresaTransporte,'') AS EmpresaTransporte ,ISNULL(Motivo,'')AS 'Motivo',CONVERT(varchar,Fecha_ingreso,120) as 'Fecha_ingreso',
+            ISNULL(CONVERT(varchar,Fecha_salida,120),'') as 'Fecha_salida',Id,ISNULL(Patente,'') AS 'Patente',TIPO,RutConductor,ISNULL(Telefono,'') as 'Telefono',ISNULL(Contenedor,'') AS 'Contenedor'
+            FROM ANDROID_RECEPCION_CAMIONES
+            WHERE COD_EMP='{$COD_EMP}' AND COD_TEM='{$COD_TEM}'  AND CONVERT(date,Fecha_ingreso,103)='{$Fecha_ingreso}'  ".$WHERE." and fecha_salida is null and ZON='{$ZON}' order by Fecha_salida  " ;
+ */
+     
+              if($COD_EMP==='ARAP' || $COD_EMP==='FORT'){
+                  
+                 $consulta="SELECT NombreConductor,ISNULL(EmpresaTransporte,'') AS EmpresaTransporte ,ISNULL(Motivo,'')AS 'Motivo',CONVERT(varchar,Fecha_ingreso,120) as 'Fecha_ingreso',
+                 ISNULL(CONVERT(varchar,Fecha_salida,120),'') as 'Fecha_salida',Id,ISNULL(Patente,'') AS 'Patente',TIPO,RutConductor,ISNULL(Telefono,'') as 'Telefono',ISNULL(Contenedor,'') AS 'Contenedor'
+                 FROM ANDROID_RECEPCION_CAMIONES
+                 WHERE COD_EMP='{$COD_EMP}' AND COD_TEM='{$COD_TEM}'  AND CONVERT(date,Fecha_ingreso,103)='{$Fecha_ingreso}'  ".$WHERE." and fecha_salida is null and ZON='{$ZON}' order by Fecha_salida  " ;
          
+                
+                  if($TIPO=='VISITA'){
+                      $consulta="SELECT NombreConductor,[EmpresaTransporte]=e.NOM_EMP+'-'+z.NOM_ZON ,ISNULL(Motivo,'')AS 'Motivo',CONVERT(varchar,Fecha_ingreso,120) as 'Fecha_ingreso',
+                                          ISNULL(CONVERT(varchar,Fecha_salida,120),'') as 'Fecha_salida',Id,ISNULL(Patente,'') AS 'Patente',TIPO,RutConductor,ISNULL(Telefono,'') as 'Telefono',ISNULL(Contenedor,'') AS 'Contenedor'
+                                          FROM ANDROID_RECEPCION_CAMIONES AC
+                                          INNER JOIN ZONAS Z ON Z.COD_EMP=AC.COD_EMP AND Z.COD_TEM=AC.COD_TEM AND Z.ZON=AC.ZON
+                                          INNER JOIN EMPRESAS E ON E.COD_EMP=AC.COD_EMP 
+                      WHERE AC.COD_EMP in ('ARAP','FORT') AND AC.COD_TEM='{$COD_TEM}'  AND CONVERT(date,Fecha_ingreso,103)='{$Fecha_ingreso}'  ".$WHERE." and fecha_salida is null order by Fecha_salida  " ;
+             
+                  }else{
+                      $consulta="SELECT NombreConductor,ISNULL(EmpresaTransporte,'') AS EmpresaTransporte ,ISNULL(Motivo,'')AS 'Motivo',CONVERT(varchar,Fecha_ingreso,120) as 'Fecha_ingreso',
+                  ISNULL(CONVERT(varchar,Fecha_salida,120),'') as 'Fecha_salida',Id,ISNULL(Patente,'') AS 'Patente',TIPO,RutConductor,ISNULL(Telefono,'') as 'Telefono',ISNULL(Contenedor,'') AS 'Contenedor'
+                  FROM ANDROID_RECEPCION_CAMIONES
+                  WHERE COD_EMP in ('ARAP','FORT') AND COD_TEM='{$COD_TEM}'  AND CONVERT(date,Fecha_ingreso,103)='{$Fecha_ingreso}'  ".$WHERE." and fecha_salida is null order by Fecha_salida  " ;
+        
+                  }
+         
+             }else{
                 $consulta="SELECT NombreConductor,ISNULL(EmpresaTransporte,'') AS EmpresaTransporte ,ISNULL(Motivo,'')AS 'Motivo',CONVERT(varchar,Fecha_ingreso,120) as 'Fecha_ingreso',
                 ISNULL(CONVERT(varchar,Fecha_salida,120),'') as 'Fecha_salida',Id,ISNULL(Patente,'') AS 'Patente',TIPO,RutConductor,ISNULL(Telefono,'') as 'Telefono',ISNULL(Contenedor,'') AS 'Contenedor'
                 FROM ANDROID_RECEPCION_CAMIONES
                 WHERE COD_EMP='{$COD_EMP}' AND COD_TEM='{$COD_TEM}'  AND CONVERT(date,Fecha_ingreso,103)='{$Fecha_ingreso}'  ".$WHERE." and fecha_salida is null and ZON='{$ZON}' order by Fecha_salida  " ;
          
-               
-              
+             }
+             
+            
+            
                
             
             $resultado=sqlsrv_query($conexion,$consulta);

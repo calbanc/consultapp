@@ -29,7 +29,7 @@ if($conexion){
         GROUP BY R.NRENDICION,E.NOM_EMP,R.COD_TEM,R.IDTRABAJADOR,T.Nombre,T.ApellidoPaterno,T.ApellidoMaterno
         ORDER BY NRendicion DESC";
 
-		
+	
 		
 		$resultado=sqlsrv_query($conexion,$consulta);
 		
